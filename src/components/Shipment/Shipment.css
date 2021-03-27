@@ -1,0 +1,12 @@
+.custom{
+    width: 60%;
+    margin:30px auto ;
+}
+.custom input{
+    display: block;
+    padding: 5px 20px;
+    margin: 20px;
+}
+.error{
+    color: red;
+}
