@@ -27,7 +27,15 @@ function Login() {
   const [loggedInUser,setLoggedInUser]= useContext(UserContext);
   let { from } = location.state || { from: { pathname: "/" } };
  
+  // User token set into session storage
 
+  const setUserToken = ()=>{
+    firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+      sessionStorage.setItem('token',idToken)
+    }).catch(function(error) {
+      // Handle error
+    });
+  }
 
   const provider = new firebase.auth.GoogleAuthProvider();
   var fbProvider = new firebase.auth.FacebookAuthProvider();
@@ -44,7 +52,7 @@ function Login() {
       }
       setUser(signInUser)
       setLoggedInUser(signInUser);
-      history.replace(from);
+      setUserToken();
       console.log(displayName,email,photoURL);
     }).catch(error => {
       console.log(error.message)
